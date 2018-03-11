@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -25,10 +24,12 @@ import okhttp3.Response;
 import static pw.jawedyx.fasttrans.RoutesActivity.DELIMITER;
 
 public class StreetActivity extends AppCompatActivity {
+    private static final String DATA_TAG = "data";
+
     private TextView fromSide, toSide;
     private ImageView swap;
     private RecyclerView recycler;
-    private ArrayList<String> data = new ArrayList<>();
+    private ArrayList data = new ArrayList();
     private StreetCardAdapter adapter;
     private ConstraintLayout swapper;
     private ProgressBar streetBar;
@@ -46,16 +47,13 @@ public class StreetActivity extends AppCompatActivity {
         swapper = findViewById(R.id.swapper);
         streetBar = findViewById(R.id.streetbar);
 
-        if(data != null && data.size() > 0) {
+        if(savedInstanceState != null){
+            data = (ArrayList) savedInstanceState.getSerializable(DATA_TAG);
             setData();
-
-        }else{ //Загрузить данные, если их нет
-            // TODO: 11.03.2018 backstack\states
+        }else{
             String[] args = {getIntent().getStringExtra(RoutesActivity.URL_TAG) + getIntent().getStringExtra(RoutesActivity.NEXT_URL_TAG)};
-
             StreetGetter streetGetter = new StreetGetter();
             streetGetter.execute(args);
-            Log.wtf("jawex", "Выкачка");
         }
     }
 
@@ -113,6 +111,8 @@ public class StreetActivity extends AppCompatActivity {
     }
 
     private void setData() {
+        streetBar.setVisibility(View.GONE);
+
         if(data != null && data.size() > 0){
             StreetCardAdapter adapter = new StreetCardAdapter(data);
             adapter.setListener(position -> {
@@ -120,8 +120,8 @@ public class StreetActivity extends AppCompatActivity {
             });
             recycler.setAdapter(adapter);
 
-            String from = data.get(0).split(DELIMITER)[1];
-            String to = data.get(data.size()-1).split(DELIMITER)[1];
+            String from = data.get(0).toString().split(DELIMITER)[1];
+            String to = data.get(data.size()-1).toString().split(DELIMITER)[1];
 
             fromSide.setText(from);
             toSide.setText(to);
@@ -144,6 +144,9 @@ public class StreetActivity extends AppCompatActivity {
 
     }
 
-
-
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(DATA_TAG, data);
+    }
 }

@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -32,7 +31,7 @@ public class RoutesActivity extends AppCompatActivity {
     private String currentUrl;
     private RecyclerView recycler;
     private ProgressBar progressBar;
-    private  ArrayList<String> data = new ArrayList<>();
+    private  ArrayList data = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +39,6 @@ public class RoutesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_routes);
 
         id = App.getChoiceId();
-        Log.wtf("jawex", " " + id);
 
         recycler = findViewById(R.id.recycler_choice);
         progressBar = findViewById(R.id.progress);
@@ -49,11 +47,15 @@ public class RoutesActivity extends AppCompatActivity {
         currentUrl = URL + id;
         String[] args = {currentUrl};
 
+        if(savedInstanceState != null){
+            data = (ArrayList) savedInstanceState.getSerializable("data");
+            setRoutes();
+        }else{
+            Getter getter = new Getter();
+            getter.execute(args);
 
-        Getter getter = new Getter();
-        getter.execute(args);
-
-        recycler.setAdapter(new RoutesCardAdapter());
+            recycler.setAdapter(new RoutesCardAdapter());
+        }
 
     }
 
@@ -65,7 +67,7 @@ public class RoutesActivity extends AppCompatActivity {
 
 
 
-    class Getter extends AsyncTask<String, Void, ArrayList<String>>{
+    class Getter extends AsyncTask<String, Void, ArrayList>{
 
 
         @Override
@@ -75,7 +77,7 @@ public class RoutesActivity extends AppCompatActivity {
         }
 
         @Override
-        protected ArrayList<String> doInBackground(String... strings) {
+        protected ArrayList doInBackground(String... strings) {
             String result;
 
             Request request = new Request.Builder().url(strings[0]).build();
@@ -107,7 +109,7 @@ public class RoutesActivity extends AppCompatActivity {
 
 
         @Override
-        protected void onPostExecute(ArrayList<String> data) {
+        protected void onPostExecute(ArrayList data) {
             super.onPostExecute(data);
             setRoutes();
         }
@@ -118,7 +120,7 @@ public class RoutesActivity extends AppCompatActivity {
         adapter.setListener(position -> {
             Intent cStreet = new Intent(getApplicationContext(), StreetActivity.class);
             currentUrl = currentUrl.replace("list.php", "config.php");
-            String[] sData = data.get(position).split(DELIMITER);
+            String[] sData = data.get(position).toString().split(DELIMITER);
 
             cStreet.putExtra(URL_TAG, currentUrl);
             cStreet.putExtra(NEXT_URL_TAG, sData[2]);
@@ -132,5 +134,9 @@ public class RoutesActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("data", data);
+    }
 }

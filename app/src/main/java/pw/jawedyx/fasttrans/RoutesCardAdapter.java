@@ -9,7 +9,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class RoutesCardAdapter extends RecyclerView.Adapter<RoutesCardAdapter.ViewHolder>{
-    private ArrayList<String> routes;
+    private ArrayList routes;
     private Listener listener;
 
 
@@ -29,7 +29,7 @@ public class RoutesCardAdapter extends RecyclerView.Adapter<RoutesCardAdapter.Vi
 
     public RoutesCardAdapter(){ }
 
-    public RoutesCardAdapter(ArrayList<String> routes){
+    public RoutesCardAdapter(ArrayList routes){
         this.routes = routes;
     }
 
@@ -44,7 +44,7 @@ public class RoutesCardAdapter extends RecyclerView.Adapter<RoutesCardAdapter.Vi
 
         CardView cardView = holder.cardView;
         TextView side, num, details;
-        String data = routes.get(position);
+        String data = routes.get(position).toString();
         String[] sData = data.split(RoutesActivity.DELIMITER);
 
         num = cardView.findViewById(R.id.num);

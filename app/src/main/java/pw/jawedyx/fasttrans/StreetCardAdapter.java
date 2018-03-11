@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 
 public class StreetCardAdapter extends RecyclerView.Adapter<StreetCardAdapter.ViewHolder>{
-    private ArrayList<String> streets;
+    private ArrayList streets;
     private Listener listener;
 
 
@@ -30,7 +30,7 @@ public class StreetCardAdapter extends RecyclerView.Adapter<StreetCardAdapter.Vi
 
     public StreetCardAdapter(){ }
 
-    public StreetCardAdapter(ArrayList<String> streets){
+    public StreetCardAdapter(ArrayList streets){
         this.streets = streets;
     }
 
@@ -45,7 +45,7 @@ public class StreetCardAdapter extends RecyclerView.Adapter<StreetCardAdapter.Vi
 
         CardView cardView = holder.cardView;
         TextView streetName, details;
-        String data = streets.get(position);
+        String data = streets.get(position).toString();
         String[] sData = data.split(RoutesActivity.DELIMITER);
 
         streetName = cardView.findViewById(R.id.street_name);
