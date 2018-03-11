@@ -7,10 +7,9 @@ import android.support.v7.widget.CardView;
 
 public class ChoiceActivity extends AppCompatActivity {
 
-    public static final String BUS = "bus";
-    public static final String TRAIN = "train";
-    public static final String TROLL = "troll";
-    public static final String CHOICE_TAG = "transport";
+    public static final int BUS_ID = 1;
+    public static final int TROLL_ID = 2;
+    public static final int TRAIN_ID = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,23 +20,23 @@ public class ChoiceActivity extends AppCompatActivity {
         CardView trainCard = findViewById(R.id.train_card);
         CardView trollCard = findViewById(R.id.troll_card);
 
-        busCard.setOnClickListener( v-> choice(BUS));
-        trainCard.setOnClickListener( v -> choice(TRAIN));
-        trollCard.setOnClickListener( v -> choice(TROLL));
+        busCard.setOnClickListener( v-> choice(BUS_ID));
+        trainCard.setOnClickListener( v -> choice(TRAIN_ID));
+        trollCard.setOnClickListener( v -> choice(TROLL_ID));
     }
 
-    private void choice(String bus) {
+    private void choice(int bus) {
         Intent cIntent = new Intent(getApplicationContext(), RoutesActivity.class);
 
         switch (bus){
-            case BUS:
-                cIntent.putExtra(CHOICE_TAG, BUS);
+            case BUS_ID:
+                App.setChoiceId(BUS_ID);
                 break;
-            case TRAIN:
-                cIntent.putExtra(CHOICE_TAG, TRAIN);
+            case TRAIN_ID:
+                App.setChoiceId(TRAIN_ID);
                 break;
-            case TROLL:
-                cIntent.putExtra(CHOICE_TAG, TROLL);
+            case TROLL_ID:
+                App.setChoiceId(TROLL_ID);
                 break;
         }
 
