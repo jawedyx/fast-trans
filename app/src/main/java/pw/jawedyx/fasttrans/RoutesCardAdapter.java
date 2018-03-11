@@ -51,6 +51,12 @@ public class RoutesCardAdapter extends RecyclerView.Adapter<RoutesCardAdapter.Vi
         side = cardView.findViewById(R.id.side);
         details = cardView.findViewById(R.id.details);
 
+        cardView.setOnClickListener(v -> {
+            if(listener != null) {
+                listener.onClick(position);
+            }
+        });
+
         num.setText(sData[0].trim());
         side.setText(sData[1].trim());
         details.setText(sData[2].trim());

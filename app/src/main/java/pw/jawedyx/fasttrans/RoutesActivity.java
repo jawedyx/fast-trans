@@ -4,7 +4,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -27,6 +28,7 @@ public class RoutesActivity extends AppCompatActivity {
     private OkHttpClient client = new OkHttpClient();
     private int id;
     private RecyclerView recycler;
+    private ProgressBar progressBar;
 
 
     @Override
@@ -35,6 +37,7 @@ public class RoutesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_routes);
 
         recycler = findViewById(R.id.recycler_choice);
+        progressBar = findViewById(R.id.progress);
         URL = getResources().getString(R.string.routes_url);
 
         switch (getIntent().getStringExtra(ChoiceActivity.CHOICE_TAG)){
@@ -57,6 +60,12 @@ public class RoutesActivity extends AppCompatActivity {
         ArrayList<String> data = new ArrayList<>();
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            recycler.setVisibility(View.GONE);
+        }
+
+        @Override
         protected ArrayList<String> doInBackground(String... strings) {
             String result = null;
 
@@ -66,7 +75,7 @@ public class RoutesActivity extends AppCompatActivity {
 
                 if (!response.isSuccessful()) throw new IOException("Не удалось получить данные " + response);
                 result = StringEscapeUtils.unescapeHtml4 (response.body().string());
-                Log.wtf("jawex", result);
+
                 Pattern hrefPattern = Pattern.compile("<a href='(.*?)'>(.*?)</a>(.*?)<br/>");
                 Matcher hrefMatcher = hrefPattern.matcher(result);
 
@@ -93,7 +102,16 @@ public class RoutesActivity extends AppCompatActivity {
         protected void onPostExecute(ArrayList<String> data) {
             super.onPostExecute(data);
 
-            recycler.setAdapter(new RoutesCardAdapter(data));
+            RoutesCardAdapter adapter = new RoutesCardAdapter(data);
+            adapter.setListener(position -> {
+                // TODO: 11.03.2018 Реализовать клик
+            });
+            recycler.setAdapter(adapter);
+
+            progressBar.setVisibility(View.GONE);
+            recycler.setVisibility(View.VISIBLE);
+
+
         }
     }
 }
