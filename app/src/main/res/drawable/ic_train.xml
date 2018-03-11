@@ -1,0 +1,33 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="512dp"
+        android:height="512dp"
+        android:viewportWidth="512.0"
+        android:viewportHeight="512.0">
+    <path
+        android:pathData="M440,168h-16v-24H304v24h-96v-24H88v24H72c-8.8,0 -16,7.2 -16,16v104c0,17.7 14.3,32 32,32h120h48h48h128c17.7,0 24,-14.3 24,-32V184C456,175.2 448.8,168 440,168z"
+        android:fillColor="#F5BD3A"/>
+    <path
+        android:pathData="M440,176h-16H304h-96H88H72c-8.8,0 -16,7.2 -16,16v104c0,17.7 14.3,32 32,32h120v-32H88v-32h120v-56h48h48v56h120v32H304v32h128c17.7,0 24,-14.3 24,-32V192C456,183.2 448.8,176 440,176z"
+        android:fillColor="#F9D789"/>
+    <path
+        android:pathData="M208,200l-120,0l0,56l120,0l0,64l96,0l0,-64l120,0l0,-56l-120,0z"
+        android:fillColor="#CCCCCC"/>
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M32.1,336h448v16h-448z"/>
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M488.1,264h-16v16h-8v-96c0,-13.2 -10.8,-24 -24,-24h-8v-24h-136v24h-80v-24h-136v24h-8c-13.2,0 -24,10.8 -24,24v96h-8v-16h-16v32H48.9c3.7,18.2 19.9,32 39.2,32h112h16h80h16h120c17.8,0 29.2,-11.8 31.5,-32h24.5V264zM312.1,152h104v8h-104V152zM96.1,152h104v8h-104V152zM200.1,280h-104v-16h104V280zM200.1,248h-104v-40h104V248zM248.1,312h-32v-16v-32v-16v-40h32V312zM296.1,248v16v32v16h-32V208h32V248zM448.1,288c0,24 -12,24 -16,24h-120v-16h120v-32v-16v-56h-120h-16h-80h-16h-120v56v16v32h120v16h-112c-13.2,0 -24,-10.8 -24,-24V184c0,-4.4 3.6,-8 8,-8h8h136h80h136h8c4.4,0 8,3.6 8,8V288zM416.1,264v16h-104v-16H416.1zM312.1,248v-40h104v40H312.1z"/>
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M0,360h192v16h-192z"/>
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M208,360h32v16h-32z"/>
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M256,360h208v16h-208z"/>
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M480,360h32v16h-32z"/>
+</vector>

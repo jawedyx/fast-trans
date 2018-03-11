@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">FastTrans</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="add_num">Добавить маршрут</string>
+    <string name="troll">Троллейбус</string>
+    <string name="train">Трамвай</string>
+    <string name="bus">Автобус</string>
+    <string name="choice_info">
+        Выберите интересующий Вас вид транспорта,\n
+        чтобы увидеть список маршрутов.
+    </string>
+    <string name="choice_route">Выберите маршрут</string>
+    <string name="routes_url">http://yartr.ru/list.php?vt=</string>
+</resources>
